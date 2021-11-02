@@ -1,5 +1,7 @@
 #define INF 99999
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 int ex[5][5] = {
@@ -9,8 +11,27 @@ int ex[5][5] = {
     {INF, INF, 2, 0, 3},
     {3, INF, INF, INF, 0}};
 
+int myEx[5][5] = {
+    {0, 3, INF, INF, 4},
+    {INF, 0, INF, 6, INF},
+    {7, INF, 0, 4, INF},
+    {INF, INF, 5, 0, 3},
+    {2, 11, INF, INF, 0}};
+
 int **D;
 int **P;
+
+void printMat(int **M)
+{
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            cout << M[i][j] << "\t";
+        }
+        cout << endl;
+    }
+}
 
 void floyd2(int n, int W[][5])
 {
@@ -49,23 +70,23 @@ void floyd2(int n, int W[][5])
                 }
             }
         }
+
+        printMat(D);
     }
 }
-void printMat(int **M)
-{
-    for (int i = 0; i < 5; i++)
-    {
-        for (int j = 0; j < 5; j++)
-        {
-            cout << M[i][j] << "\t";
-        }
-        cout << endl;
-    }
-}
+
 int main()
 {
-
+    cout << "교재 예제" << endl;
     floyd2(5, ex);
+    cout << "print D" << endl;
+    printMat(D);
+    cout << endl;
+    cout << "print P" << endl;
+    printMat(P);
+
+    cout << "자작" << endl;
+    floyd2(5, myEx);
     cout << "print D" << endl;
     printMat(D);
     cout << endl;
