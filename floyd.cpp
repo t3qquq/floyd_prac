@@ -10,6 +10,7 @@ int ex[5][5] = {
     {3, INF, INF, INF, 0}};
 
 int **D;
+int **P;
 
 void floyd2(int n, int W[][5])
 {
@@ -23,6 +24,16 @@ void floyd2(int n, int W[][5])
         }
     }
 
+    P = new int *[n];
+    for (int i = 0; i < n; i++)
+    {
+        *(P + i) = new int[n];
+        for (int j = 0; j < n; j++)
+        {
+            P[i][j] = 0;
+        }
+    }
+
     int i, j, k;
 
     for (k = 1; k <= n; k++)
@@ -32,22 +43,32 @@ void floyd2(int n, int W[][5])
             for (j = 1; j <= n; j++)
             {
                 if (D[i - 1][j - 1] > D[i - 1][k - 1] + D[k - 1][j - 1])
+                {
+                    P[i - 1][j - 1] = k;
                     D[i - 1][j - 1] = D[i - 1][k - 1] + D[k - 1][j - 1];
+                }
             }
         }
     }
 }
-
-int main()
+void printMat(int **M)
 {
-
-    floyd2(5, ex);
     for (int i = 0; i < 5; i++)
     {
         for (int j = 0; j < 5; j++)
         {
-            cout << D[i][j] << "\t";
+            cout << M[i][j] << "\t";
         }
         cout << endl;
     }
+}
+int main()
+{
+
+    floyd2(5, ex);
+    cout << "print D" << endl;
+    printMat(D);
+    cout << endl;
+    cout << "print P" << endl;
+    printMat(P);
 }
